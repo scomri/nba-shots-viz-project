@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -7,7 +6,6 @@ from matplotlib.patches import Circle, Rectangle, Arc
 import altair as alt
 import matplotlib.gridspec as gridspec
 import plotly.express as px
-import gzip
 
 
 def show_viz1_shots_years(df_data_shots):
