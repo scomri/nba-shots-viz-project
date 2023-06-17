@@ -6,12 +6,11 @@ from matplotlib.patches import Circle, Rectangle, Arc
 import altair as alt
 import matplotlib.gridspec as gridspec
 import plotly.express as px
+import gzip
 
 
-def show_viz1_shots_years():
-    df_shots_2 = pd.read_csv('Data/data_for_viz14_2point.csv')
-    df_shots_3 = pd.read_csv('Data/data_for_viz14_3point.csv')
-    df_data_shots = pd.concat([df_shots_2, df_shots_3])
+def show_viz1_shots_years(df_data_shots):
+    # df_data_shots = pd.read_csv('Data/data_viz14.csv.gz', compression='gzip')
 
     # Filter data by years
     selected_years = st.slider("Select Period of Years", 2000, 2022, (2000, 2022), key='year')
@@ -227,10 +226,8 @@ def show_viz3_shots_bbcourt():
     st.pyplot(fig)
 
 
-def show_viz4_teams_years():
-    df_shots_2 = pd.read_csv('Data/data_for_viz14_2point.csv')
-    df_shots_3 = pd.read_csv('Data/data_for_viz14_3point.csv')
-    data_all_shots = pd.concat([df_shots_2, df_shots_3])
+def show_viz4_teams_years(data_all_shots):
+    # data_all_shots = pd.read_csv('Data/data_viz14.csv.gz', compression='gzip')
     st.subheader("NBA Teams Shot Taking Analysis Over the Years")
 
     # Set the years range and the default selected year
@@ -279,9 +276,9 @@ def show_viz4_teams_years():
 
 
 def show_viz5_shots_states():
-    df_shots_2 = pd.read_csv('Data/data_viz5_states_2points.csv')
-    df_shots_3 = pd.read_csv('Data/data_viz5_states_3points.csv')
-    data_shot_counts = pd.concat([df_shots_2, df_shots_3])
+    # df_shots_2 = pd.read_csv('Data/data_viz5_states_2points.csv.gz', compression='gzip')
+    # df_shots_3 = pd.read_csv('Data/data_viz5_states_3points.csv.gz', compression='gzip')
+    data_shot_counts = pd.read_csv('Data/data_viz5_states.csv.gz', compression='gzip')
     st.subheader("NBA Teams Shot Count Analysis by States in the USA")
 
     # Create a Streamlit radio button for selecting shot type
@@ -409,12 +406,11 @@ def show_viz5_shots_states():
 st.set_page_config(page_title='NBA Shots Viz Project - Streamlit App')
 st.title("NBA Basketball Shots Data Visualizations")
 
-show_viz1_shots_years()
+# Load dataset for Viz #1 & #4 only once:
+df_data_viz14 = pd.read_csv('Data/data_viz14.csv.gz', compression='gzip')
 
+show_viz1_shots_years(df_data_viz14)
 show_viz2_shots_gametime()
-
 show_viz3_shots_bbcourt()
-
-show_viz4_teams_years()
-
+show_viz4_teams_years(df_data_viz14)
 show_viz5_shots_states()
